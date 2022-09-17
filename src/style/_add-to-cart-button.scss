@@ -1,0 +1,13 @@
+@import "./colors";
+
+.button__add-to-cart {
+    width: 296px;
+    height: 52px;
+    background-color: $green;
+    color: white;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

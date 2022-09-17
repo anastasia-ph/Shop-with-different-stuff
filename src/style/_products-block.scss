@@ -1,0 +1,28 @@
+@import "./colors";
+
+.products-block__container {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 80px 0 80px;
+    position: relative;
+}
+
+
+
+.products-block__category {
+    font: 400 42px "Raleway";
+    margin-left: 22px;
+    color: $black;
+
+    text-transform: capitalize;
+}
+
+.products-block__items {
+
+    max-width: 100%;
+    box-sizing: border-box;
+    height: max-content;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

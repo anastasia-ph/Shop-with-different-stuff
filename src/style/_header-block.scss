@@ -1,0 +1,80 @@
+@import "./colors";
+
+.header-block__header {
+    height: 80px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+
+
+}
+
+.header-block__categories-container {
+    margin: 0 0 0 85px;
+    width: 234px;
+    height: 56px;
+    display: flex;
+    align-self: flex-end;
+    flex-direction: row;
+    align-items: center;
+    justify-self: flex-start;
+
+
+}
+
+.header-block__categories {
+    box-sizing: border-box;
+    cursor: pointer;
+
+    padding: 0 16px 30px 16px;
+    font: 400 16px "Raleway";
+    text-transform: uppercase;
+    color: $black;
+
+
+    &:hover {
+        color: $green;
+        font: 600 16px "Raleway";
+        border-bottom: 2px solid $green;
+
+    }
+
+}
+
+.selected {
+    color: $green;
+    font: 600 16px "Raleway";
+    border-bottom: 2px solid $green;
+
+}
+
+.header-block__icon-container {
+    width: 41px;
+    height: 41px;
+    display: flex;
+    align-self: center;
+    justify-self: center;
+}
+
+.header-block__icon {
+    width: 100%;
+}
+
+.header-block__actions-container {
+    width: 204px;
+    height: 40px;
+    margin: 0 101px 0 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.emptycart-icon-container {
+    width: 20px;
+    height: 20px;
+    margin: 0 0 0 22px;
+    cursor: pointer;
+}

@@ -1,0 +1,78 @@
+@import "./colors";
+
+.pdp__container {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.pdp__side-images-container {
+    margin-left: 16px;
+    width: 80px;
+    height: 559px;
+    overflow: scroll;
+
+}
+
+.pdp__images-preview-container {
+    width: 79px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0 20px 0;
+    overflow: hidden;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.pdp__images-preview-container_active {
+    border: 1px solid $black;
+}
+
+.pdp__images-preview {
+    height: 100%;
+}
+
+.pdp__images-preview-jacket {
+    width: 100%;
+}
+
+.pdp__main-photo_container {
+    width: 610px;
+    height: 511px;
+    overflow: hidden;
+    background-color: $white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pdp__main-photo_container_jacket {
+    width: 610px;
+    height: 511px;
+    overflow: hidden;
+    background-color: $white;
+    display: flex;
+    align-items: flex-start;
+
+
+}
+
+.pdp__main-photo {
+    width: 80%;
+}
+
+.pdp__main-photo_jacket {
+    width: 100%;
+}
+
+.pdp__item-description {
+    display: flex;
+    flex-direction: column;
+}

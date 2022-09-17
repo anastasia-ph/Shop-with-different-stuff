@@ -1,0 +1,69 @@
+@import "./colors";
+
+.currency-dropdown__container {
+    position: absolute;
+    right: 0;
+    z-index: 3;
+    width: 114px;
+    height: max-content;
+    overflow: hidden;
+    margin-top: 80px;
+    margin-right: 78px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 35px $shadow-color;
+
+    @for $i from 0 through 4 {
+        .item#{$i} {
+            transform-origin: top center;
+            animation: 300ms #{($i+1)*60ms} ease-in-out forwards slideFromTopToBottom
+        }
+    }
+}
+
+
+
+
+.currency-dropdown__item {
+    width: 114px;
+    box-sizing: border-box;
+    padding: 0 38px 0 20px;
+    height: 62px;
+    background-color: $white;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $gray;
+    }
+}
+
+.currency-dropdown__text {
+    font: 500 18px "Raleway";
+
+    &:first-child {
+        padding-right: 2px;
+    }
+
+    &:last-child {
+        padding-left: 2px;
+    }
+}
+
+@keyframes slideFromTopToBottom {
+    0% {
+        opacity: 0;
+        transform: rotateX(-90deg);
+    }
+
+    50% {
+        transform: rotateX(-20deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: rotateX(0deg);
+    }
+
+}

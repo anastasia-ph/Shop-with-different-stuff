@@ -1,0 +1,16 @@
+.wrapper {
+    width: 100%;
+    max-height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+html {
+    overflow: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+    /* make scrollbar transparent */
+}
