@@ -71,7 +71,7 @@ export class App extends React.Component {
         <div className="wrapper">
           <HeaderBlock switchCategory={switchCategory.bind(this)} symbol={this.state.currentCurrency} currencySwitcher={() => this.setState({ Displayed: !this.state.Displayed })}></HeaderBlock>
           {this.state.Displayed && <CurrencyDropdown switchCurrency={switchCurrency.bind(this)}></CurrencyDropdown>}
-          <ProductsBlock category={this.state.currentCategory}></ProductsBlock>
+          <ProductsBlock category={this.state.currentCategory} currency={this.state.currentCurrency}></ProductsBlock>
         </div>
       </ApolloProvider >
 

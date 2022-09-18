@@ -3,7 +3,6 @@ import { Query } from "@apollo/client/react/components"
 import { GET_ATTRIBUTES_BY_ID } from "../GRAPHQL/Queries";
 import { switchActivePreview } from "../utils/switchActivePreview";
 import { AddToCartButton } from "./AddToCartButton"
-
 export class PDP extends React.Component {
     constructor(props) {
         super(props)
@@ -27,6 +26,8 @@ export class PDP extends React.Component {
                     {({ data, error, loading }) => {
                         if (error) return <p>Error!</p>
                         if (loading) return <p>Loading...</p>
+                        let usedCurrency = data.product.prices.filter((e) => e.currency.symbol == this.props.currency)
+                        console.log(usedCurrency)
                         return (
                             <>
                                 <div className="pdp__side-images-container">
@@ -43,13 +44,24 @@ export class PDP extends React.Component {
                                     <p className="pdp_item-name">{data.product.name}</p>
                                     <div className="attributes">
                                         {/* create html element for each attribute group name */}
-                                        {data.product.attributes.map((e) => <div className="item-atribute__name">
-                                            <p>{e.name}</p>
+                                        {data.product.attributes.map((e) => <div className="item-attributes__group">
+                                            <p className="item-attribute__name">{e.name}</p>
                                             {/* and create separate html elements for each value in attributes group */}
-                                            {e.items.map((item) =>
-                                                <p>{e.type == "text" && item.value}</p>)}
+                                            <p className="item-attribute__values">
+                                                {e.items.map((item) =>
+                                                    <p style={{ backgroundColor: item.value }} className={e.type == "text" ? "attribute-value__text" : (item.displayValue == "White" ? "attribute-value__color color_white-border" : "attribute-value__color")}>{e.type == "text" && item.value}</p>)}
+                                            </p>
                                         </div>)}
+                                        <p className="item-attribute__name">Price:</p>
+                                        <div className="item-attribute__price">
+                                            {usedCurrency.map((e) => <>
+                                                <p className="attribute-price_price">{e.amount}</p>
+                                                <p className="attribute-price_price">{e.currency.symbol}</p>
+                                            </>
+                                            )}
+                                        </div>
                                     </div>
+
                                     <AddToCartButton text='Add to cart'></AddToCartButton>
 
                                     <div dangerouslySetInnerHTML={{ __html: data.product.description }} />

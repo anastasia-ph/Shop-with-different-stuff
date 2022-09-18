@@ -1,6 +1,7 @@
 @import "./colors";
 
 .pdp__container {
+    background-color: $white;
     width: 100%;
     height: 100vh;
     position: absolute;
@@ -8,8 +9,12 @@
     z-index: 1;
     display: flex;
     flex-direction: row;
+    margin: 0 0 0 100px;
 }
 
+.attributes {
+    margin: 0 0 20px 0;
+}
 
 .pdp__side-images-container {
     margin-left: 16px;
@@ -72,7 +77,106 @@
     width: 100%;
 }
 
+.item-attributes__group {
+    margin: 0 0 24px 0;
+
+    &:last-child {
+        margin: 0 0 38px 0;
+    }
+}
+
 .pdp__item-description {
+    width: 292px;
+    height: max-content;
     display: flex;
     flex-direction: column;
+
+}
+
+.pdp__item-brand {
+    font: 600 30px "Raleway";
+    color: $black ;
+    margin: 0 0 8px 0;
+}
+
+.pdp_item-name {
+    font: 400 30px "Raleway";
+    color: $black ;
+    margin: 8px 0 43px 0;
+}
+
+.item-attribute__name {
+    font: 700 18px "RobotoCondensed";
+    color: $black ;
+    text-transform: uppercase;
+    margin: 0 0 8px 0;
+
+}
+
+.item-attribute__values {
+    margin: 0 0 0 0;
+    display: flex;
+    flex-direction: row;
+    height: min-content;
+}
+
+.attribute-value__text {
+    cursor: pointer;
+    margin: 0 6px 0 6px;
+    width: 65px;
+    height: 43px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $black;
+
+    &:hover {
+        background-color: $black;
+        color: $white;
+    }
+
+    &:first-child {
+        margin: 0 6px 0 0;
+    }
+
+    &:last-child {
+        margin: 0 0 0 6px;
+    }
+}
+
+.attribute-value__color {
+    cursor: pointer;
+    margin: 0 4px 0 4px;
+    width: 35px;
+    height: 35px;
+    border: 1px solid transparent;
+
+    &:first-child {
+        margin: 0 4px 0 0;
+    }
+
+    &:last-child {
+        margin: 0 0 0 4px;
+    }
+
+    &:hover {
+        border: 1px solid $green;
+
+    }
+
+}
+
+.color_white-border {
+    border: 1px solid $black;
+}
+
+.item-attribute__price {
+    display: flex;
+    flex-direction: row;
+}
+
+.attribute-price_price {
+    margin: 0 0 0 0;
+    font: 700 24px "Raleway";
+    color: $black
 }

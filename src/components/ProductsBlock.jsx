@@ -33,9 +33,12 @@ export class ProductsBlock extends React.Component {
                         {({ data, error, loading }) => {
                             if (error) return <p>Error!</p>
                             if (loading) return <p>Loading...</p>
+                            // select one specific price symbol of which matches currently selected currency value
+                            let usedCurrency = data.category.products.map((e, i) => e.prices.filter((price) => price.currency.symbol == this.props.currency))
+
                             return (
                                 <>
-                                    {data.category.products.map((e, i) => <ProductCard src={e.gallery[0]} id={e.id} inStock={e.inStock} name={e.name} price={e.prices[0].amount} symbol={e.prices[0].currency.symbol} onClick={this.onClickCard}></ProductCard>)}
+                                    {data.category.products.map((e, i) => <ProductCard src={e.gallery[0]} id={e.id} inStock={e.inStock} name={e.name} price={usedCurrency[i][0].amount} symbol={usedCurrency[i][0].currency.symbol} onClick={this.onClickCard}></ProductCard>)}
                                 </>
                             )
                         }
@@ -43,7 +46,7 @@ export class ProductsBlock extends React.Component {
                     </Query>
 
                 </div>
-                {this.state.openPDP && <PDP id={this.state.id}></PDP>}
+                {this.state.openPDP && <PDP id={this.state.id} currency={this.props.currency}></PDP>}
             </div>
         )
     }
