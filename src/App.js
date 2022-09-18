@@ -16,6 +16,7 @@ import { Query } from "@apollo/client/react/components"
 import { switchCategory } from './utils/switchCategory';
 import { switchCurrency } from "./utils/switchCurrency";
 import { CurrencyDropdown } from './components/CurrencyDropdown';
+import { addToCartFromCartIcon } from './utils/addToCartFromCartIcon';
 
 
 //add behaviour if error occurs
@@ -38,7 +39,8 @@ export class App extends React.Component {
   state = {
     currentCategory: localStorage.getItem("currentCategory"),
     Displayed: false,
-    currentCurrency: localStorage.getItem("currentCurrency")
+    currentCurrency: localStorage.getItem("currentCurrency"),
+    itemsInCart: 0
   }
 
   render() {
@@ -69,9 +71,9 @@ export class App extends React.Component {
         </Query >
 
         <div className="wrapper">
-          <HeaderBlock switchCategory={switchCategory.bind(this)} symbol={this.state.currentCurrency} currencySwitcher={() => this.setState({ Displayed: !this.state.Displayed })}></HeaderBlock>
+          <HeaderBlock itemsInCart={this.state.itemsInCart} switchCategory={switchCategory.bind(this)} symbol={this.state.currentCurrency} currencySwitcher={() => this.setState({ Displayed: !this.state.Displayed })}></HeaderBlock>
           {this.state.Displayed && <CurrencyDropdown switchCurrency={switchCurrency.bind(this)}></CurrencyDropdown>}
-          <ProductsBlock category={this.state.currentCategory} currency={this.state.currentCurrency}></ProductsBlock>
+          <ProductsBlock category={this.state.currentCategory} currency={this.state.currentCurrency} addToCart={addToCartFromCartIcon.bind(this)}></ProductsBlock>
         </div>
       </ApolloProvider >
 

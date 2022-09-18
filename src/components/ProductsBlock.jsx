@@ -38,7 +38,7 @@ export class ProductsBlock extends React.Component {
 
                             return (
                                 <>
-                                    {data.category.products.map((e, i) => <ProductCard src={e.gallery[0]} id={e.id} inStock={e.inStock} name={e.name} price={usedCurrency[i][0].amount} symbol={usedCurrency[i][0].currency.symbol} onClick={this.onClickCard}></ProductCard>)}
+                                    {data.category.products.map((e, i) => <ProductCard src={e.gallery[0]} id={e.id} inStock={e.inStock} name={e.name} price={usedCurrency[i][0].amount} symbol={usedCurrency[i][0].currency.symbol} onClick={this.onClickCard} addToCart={this.props.addToCart}></ProductCard>)}
                                 </>
                             )
                         }

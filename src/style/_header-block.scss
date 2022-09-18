@@ -77,4 +77,22 @@
     height: 20px;
     margin: 0 0 0 22px;
     cursor: pointer;
+    position: relative;
+}
+
+.cart__items-amount-icon {
+    width: 21px;
+    height: 21px;
+    background-color: $black;
+    color: $white;
+    border-radius: 25px;
+    bottom: 0;
+    margin-left: 12px;
+    margin-bottom: 8px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font: 700 14px "Roboto";
+
 }

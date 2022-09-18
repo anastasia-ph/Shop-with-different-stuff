@@ -8,7 +8,7 @@ export class ProductCard extends React.Component {
         return (
             <div className="product-card__container" onClick={this.props.onClick} id={this.props.id}>
                 <div className="product-card__container-with-cart-icon">
-                    <img src="../assets/add_to_cart.svg" alt="add to cart" className="product-card__cart-icon"></img>
+                    <img src="../assets/add_to_cart.svg" alt="add to cart" className="product-card__cart-icon" onClick={this.props.addToCart}></img>
                     <div className="product-card__image-container">
 
                         <img className={this.props.inStock ? (this.props.name == "Jacket" ? "product-card__image_jacket" : "product-card__image") : (this.props.name == "Jacket" ? "product-card__image_jacket product-card__image-outofstock" : "product-card__image product-card__image-outofstock")} src={this.props.src} alt={this.props.name}></img>

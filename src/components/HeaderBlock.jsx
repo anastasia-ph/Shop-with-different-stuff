@@ -38,6 +38,7 @@ export class HeaderBlock extends React.Component {
                     <CurrencyBlock symbol={this.props.symbol} currencySwitcher={this.props.currencySwitcher}></CurrencyBlock>
                     <div className="emptycart-icon-container">
                         <img className="emptycart-icon" src="./assets/empty_cart.svg" alt="shop icon"></img>
+                        {this.props.itemsInCart > 0 && <p className="cart__items-amount-icon">{this.props.itemsInCart}</p>}
                     </div>
                 </div>
             </div>

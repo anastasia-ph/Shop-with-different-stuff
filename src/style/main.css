@@ -17,6 +17,11 @@
   src: url("./fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
 }
 
+@font-face {
+  font-family: "Roboto";
+  src: url("./fonts//Roboto/Roboto-Regular.ttf");
+}
+
 .header-block__header {
   height: 80px;
   width: 100%;
@@ -115,6 +120,29 @@
   height: 20px;
   margin: 0 0 0 22px;
   cursor: pointer;
+  position: relative;
+}
+
+.cart__items-amount-icon {
+  width: 21px;
+  height: 21px;
+  background-color: #000000;
+  color: #ffffff;
+  border-radius: 25px;
+  bottom: 0;
+  margin-left: 12px;
+  margin-bottom: 8px;
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font: 700 14px "Roboto";
 }
 
 .currency-block__container {

@@ -27,7 +27,6 @@ export class PDP extends React.Component {
                         if (error) return <p>Error!</p>
                         if (loading) return <p>Loading...</p>
                         let usedCurrency = data.product.prices.filter((e) => e.currency.symbol == this.props.currency)
-                        console.log(usedCurrency)
                         return (
                             <>
                                 <div className="pdp__side-images-container">
