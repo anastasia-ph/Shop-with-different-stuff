@@ -58,7 +58,7 @@ class CartDropdown extends React.Component {
 
                                                 <div className="cart-item-dropdown__attributes">
                                                     {/* create html element for each attribute group name */}
-                                                    {data[item].attributes.map((attribute) => <div key={attribute.name} className="item-attributes__group">
+                                                    {data[item].attributes.map((attribute) => <div key={attribute.name} className="cart-item-attributes__group">
                                                         <p className="item-dropdown-attribute__name">{attribute.name}</p>
                                                         {/* and create separate html elements for each value in attributes group */}
                                                         <div className="item-dropdown-attribute__values">
@@ -68,7 +68,7 @@ class CartDropdown extends React.Component {
                                                                         (Object.values(element).map((value) => (item.value === value)).indexOf(true) != -1 ? "item-dropdown-attribute-value__text item-dropdown__value-text_selected" : "item-dropdown-attribute-value__text")
                                                                         :
                                                                         (Object.values(element).map((value) => (item.value === value)).indexOf(true) != -1 ? "item-dropdown-attribute-value__color item-dropdown__value-color_selected" :
-                                                                            (item.displayValue === "White" ? "item-dropdown-attribute-value__color color_white-border" : "item-dropdown-attribute-value__color")
+                                                                            (item.displayValue === "White" ? "item-dropdown-attribute-value__color value-color_white-border" : "item-dropdown-attribute-value__color")
                                                                         )}
                                                                 >{attribute.type === "text" && item.value}</p>)}
                                                         </div>

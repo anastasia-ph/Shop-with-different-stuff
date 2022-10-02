@@ -3,11 +3,12 @@
 .currency-dropdown__container {
     position: absolute;
     right: 0;
-    z-index: 3;
+    top: 0;
+    z-index: 4;
     width: 114px;
     height: max-content;
     overflow: hidden;
-    margin-top: 80px;
+    margin-top: 77px;
     margin-right: 78px;
     display: flex;
     flex-direction: column;

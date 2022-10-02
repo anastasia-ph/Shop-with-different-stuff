@@ -1,8 +1,9 @@
 import React from "react";
 import { GET_CATEGORIES } from "../GRAPHQL/Queries";
 import store from "../store";
-import { CHANGE_CATEGORY } from "../actions/actions";
-import { SWITCH_CART_DROPDOWN } from "../actions/actions";
+import { CHANGE_CATEGORY, SWITCH_CART_DROPDOWN, CHANGE_CURRENCY } from "../actions/actions";
+import { switchCurrency } from "../utils/switchCurrency";
+import { CurrencyDropdown } from './CurrencyDropdown';
 import { Query } from "@apollo/client/react/components"
 import { CurrencyBlock } from "./CurrencyBlock";
 import { connect } from "react-redux";
@@ -23,7 +24,8 @@ class HeaderBlock extends React.Component {
         super(props);
         this.state = {
             currentCategory: localStorage.getItem("currentCategory"),
-            isShopDropdownDisplayed: false
+            isCurrencyBlockDisplayed: false,
+            currentCurrency: localStorage.getItem("currentCurrency")
         }
 
 
@@ -42,7 +44,7 @@ class HeaderBlock extends React.Component {
                         if (error) return <p>error</p>;
                         return (
                             <div className="header-block__categories-container">
-                                {data.categories.map((e, i) => <p key={e.name} className={this.props.currentCategory != null ? (e.name == this.props.currentCategory ? "header-block__categories selected" : "header-block__categories") : (i == 0 ? "header-block__categories selected" : "header-block__categories")} onClick={switchCategory.bind(this)} id={e.name}>{e.name}</p>)}
+                                {data.categories.map((e, i) => <p key={e.name} className={this.props.category != null ? (e.name == this.props.category ? "header-block__categories selected" : "header-block__categories") : (i == 0 ? "header-block__categories selected" : "header-block__categories")} onClick={switchCategory.bind(this)} id={e.name}>{e.name}</p>)}
                             </div>
                         )
                     }}
@@ -51,8 +53,11 @@ class HeaderBlock extends React.Component {
                     <img className="header-block__icon" src="./assets/shop_icon.svg" alt="shop icon"></img>
                 </div>
                 <div className="header-block__actions-container">
-                    <CurrencyBlock symbol={this.props.symbol} currencySwitcher={this.props.currencySwitcher}></CurrencyBlock>
+                    <CurrencyBlock symbol={this.state.currentCurrency} isOpen={this.state.isCurrencyBlockDisplayed} currencySwitcher={() => this.setState({ isCurrencyBlockDisplayed: !this.state.isCurrencyBlockDisplayed })}></CurrencyBlock>
+
+                    {this.state.isCurrencyBlockDisplayed && <CurrencyDropdown switchCurrency={switchCurrency.bind(this)}></CurrencyDropdown>}
                     {this.props.isCartDropdown && <CartDropdown itemsInCart={this.props.cart} ></CartDropdown>}
+
                     <div className="emptycart-icon-container" onClick={() => this.props.switchCartDropdown(this.props.isCartDropdown)}>
                         <img className="emptycart-icon" src="./assets/empty_cart.svg" alt="shop icon"></img>
                         {this.props.cart.length > 0 && <p className="cart__items-amount-icon">{this.props.amountOfItemsNumber}</p>}
@@ -69,7 +74,8 @@ const mapStateToProps = function (state) {
     return {
         cart: state.itemsInCart.cart,
         amountOfItemsNumber: state.itemsInCart.amountOfItemsNumber,
-        isCartDropdown: state.switchCartDropdown.isCartDropdown
+        isCartDropdown: state.switchCartDropdown.isCartDropdown,
+        category: state.categoryReducer.currentCategory
     }
 
 }
@@ -85,6 +91,10 @@ const mapDispatchToProps = function (dispatch) {
             ,
             "isCartDropdown": !value
 
+        }),
+        sendCurrency: (value) => dispatch({
+            type: CHANGE_CURRENCY,
+            "currentCurrency": value
         })
     }
 }

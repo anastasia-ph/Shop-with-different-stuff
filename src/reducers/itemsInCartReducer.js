@@ -16,10 +16,11 @@ export function shopCartReducer(state = { cart: JSON.parse(localStorage.getItem(
                 amountOfItemsNumber: action.amountOfItemsNumber
             }
         case INCREASE_AMOUNT_OF_ITEM:
+
             return {
                 ...state,
                 cart: state.cart.map((e) => e["unique_key"] == action.unique_key ? { ...e, amount: e.amount + 1 } : e),
-                amountOfItemsNumber: state.amountOfItemsNumber + 1
+                amountOfItemsNumber: Number(state.amountOfItemsNumber) + 1
             }
         case DECREASE_AMOUNT_OF_ITEM:
             let newCart = state.cart.map((e, i) => e["unique_key"] == action.unique_key ? { ...e, amount: e.amount - 1 } : e)

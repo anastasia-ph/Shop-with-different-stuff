@@ -3,7 +3,8 @@
 .cart-dropdown__container {
     z-index: 3;
     width: 325px;
-    height: 477px;
+    height: fit-content;
+    max-height: 477px;
 
     padding: 32px 16px 32px 16px;
     position: absolute;
@@ -16,7 +17,8 @@
     flex-direction: column;
 
     @media screen and (min-width:1200px) {
-        height: 677px;
+        height: fit-content;
+        max-height: 677px;
     }
 
 }
@@ -45,16 +47,20 @@
 }
 
 .cart-item__container {
-    height: 190px;
+    height: max-content;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 20px 0 20px 0;
+    margin: 21px 0 21px 0;
+
+
+    &:last-child {
+        margin: 21px 0 0 0;
+    }
 }
 
 .cart-item-dropdown__product-container {
     width: 136px;
-    margin: 0 0 28px 0;
 }
 
 .cart-item-dropdown__product-brand {
@@ -80,6 +86,14 @@
     flex-direction: column;
 }
 
+.cart-item-attributes__group {
+    margin: 0 0 8px 0;
+
+    &:last-child {
+        margin: 0 0 0 0;
+    }
+}
+
 .item-dropdown-attribute__name {
     font: 400 14px "Raleway";
     color: $black;
@@ -94,7 +108,7 @@
 .item-dropdown-attribute-value__text {
     cursor: default;
     margin: 0 6px 0 6px;
-    width: 24px;
+    width: 38px;
     height: 24px;
     display: flex;
     justify-content: center;
@@ -120,9 +134,10 @@
 .item-dropdown-attribute-value__color {
     cursor: pointer;
     margin: 0 4px 0 4px;
-    width: 24px;
-    height: 24px;
+    width: 16px;
+    height: 16px;
     border: 2px solid transparent;
+    box-sizing: border-box;
 
     &:first-child {
         margin: 0 4px 0 0;
@@ -135,10 +150,17 @@
 }
 
 .item-dropdown__value-color_selected {
-    width: 24px;
-    height: 24px;
+    width: 16px;
+    height: 16px;
     border: 2px solid $green;
+    box-sizing: border-box;
 
+}
+
+.value-color_white-border {
+    width: 16px;
+    height: 16px;
+    border: 1px solid $black;
 }
 
 .cart-item-dropdown__buttons-container {
@@ -164,7 +186,7 @@
 }
 
 .buttons-container__amount {
-    font: 500 16px "Raleway";
+    font: 600 16px "Raleway";
     color: $black;
 
 }
@@ -187,6 +209,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin: 0 0 32px 0;
 }
 
 .cart-dropdown__total-text {
