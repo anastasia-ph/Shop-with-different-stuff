@@ -1,10 +1,24 @@
 @import "./colors";
 
 .button__add-to-cart {
+    font: 600 16px "Raleway";
     width: 296px;
     height: 52px;
     margin: 0 0 40px 0;
     background-color: $green;
+    color: white;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.button__add-to-cart_out-of-stock {
+    width: 296px;
+    height: 52px;
+    margin: 0 0 40px 0;
+    background-color: $gray;
     color: white;
     text-transform: uppercase;
     display: flex;

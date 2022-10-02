@@ -38,6 +38,7 @@ export const GET_ATTRIBUTES_BY_ID = gql`query getAttributesById($id:String!){
     brand
     id
     gallery
+    inStock
     name
     description
     attributes{

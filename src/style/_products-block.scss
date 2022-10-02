@@ -1,12 +1,26 @@
 @import "./colors";
 
+
+
+
 .products-block__container {
     width: 100%;
+    height: 100%;
+    overflow-y: scroll;
     box-sizing: border-box;
     padding: 0 80px 0 80px;
     position: relative;
 }
 
+.products-block__container_inactive-state {
+    width: 100%;
+    background-color: rgba(57, 55, 72, 0.22);
+    z-index: 1;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    position: fixed;
+}
 
 
 .products-block__category {

@@ -1,0 +1,3 @@
+const addToCartFromButton = () => {
+    document.getElementById
+}

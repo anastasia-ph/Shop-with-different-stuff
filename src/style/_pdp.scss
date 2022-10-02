@@ -17,6 +17,7 @@
 }
 
 .pdp__side-images-container {
+
     margin-left: 16px;
     width: 80px;
     height: 559px;
@@ -25,6 +26,7 @@
 }
 
 .pdp__images-preview-container {
+    position: relative;
     width: 79px;
     height: 80px;
     display: flex;
@@ -34,6 +36,8 @@
     overflow: hidden;
     background-color: white;
     box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
 }
 
 .pdp__images-preview-container_active {
@@ -45,10 +49,11 @@
 }
 
 .pdp__images-preview-jacket {
-    width: 100%;
+    height: 140%;
 }
 
 .pdp__main-photo_container {
+    position: relative;
     width: 610px;
     height: 511px;
     overflow: hidden;
@@ -64,7 +69,7 @@
     overflow: hidden;
     background-color: $white;
     display: flex;
-    align-items: flex-start;
+    justify-content: center;
 
 
 }
@@ -74,7 +79,9 @@
 }
 
 .pdp__main-photo_jacket {
-    width: 100%;
+    display: flex;
+    justify-self: center;
+    height: 130%;
 }
 
 .item-attributes__group {
@@ -144,12 +151,37 @@
     }
 }
 
+.attribute-value__text_out-of-stock {
+    cursor: pointer;
+    margin: 0 6px 0 6px;
+    width: 65px;
+    height: 43px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $black;
+
+    &:first-child {
+        margin: 0 6px 0 0;
+    }
+
+    &:last-child {
+        margin: 0 0 0 6px;
+    }
+}
+
+.value-text__selected {
+    background-color: $black;
+    color: $white;
+    border: 1px solid $black;
+}
+
 .attribute-value__color {
     cursor: pointer;
     margin: 0 4px 0 4px;
     width: 35px;
     height: 35px;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
 
     &:first-child {
         margin: 0 4px 0 0;
@@ -160,13 +192,43 @@
     }
 
     &:hover {
-        border: 1px solid $green;
+        width: 35px;
+        height: 35px;
+        border: 2px solid $green;
 
     }
 
 }
 
+.attribute-value__color_out-of-stock {
+    cursor: pointer;
+    margin: 0 4px 0 4px;
+    width: 35px;
+    height: 35px;
+    border: 2px solid transparent;
+
+    &:first-child {
+        margin: 0 4px 0 0;
+    }
+
+    &:last-child {
+        margin: 0 0 0 4px;
+    }
+
+
+
+}
+
+.value-color__selected {
+    width: 35px !important;
+    height: 35px !important;
+    border: 2px solid $green  !important;
+    ;
+}
+
 .color_white-border {
+    width: 36px;
+    height: 36px;
     border: 1px solid $black;
 }
 
@@ -179,4 +241,9 @@
     margin: 0 0 0 0;
     font: 700 24px "Raleway";
     color: $black
+}
+
+.pdp__item_warning {
+    font: 400 16px "Raleway";
+    color: $red;
 }

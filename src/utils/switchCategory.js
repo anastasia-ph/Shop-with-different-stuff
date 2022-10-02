@@ -4,8 +4,10 @@ export function switchCategory(e) {
     previousActive[0].classList.remove("selected");
     e.target.classList.add("selected");
 
-    localStorage.setItem("currentCategory", e.target.innerHTML);
+    // localStorage.setItem("currentCategory", e.target.innerHTML);
+    this.props.sendCategory(e.target.id)
     this.setState({ currentCategory: e.target.innerHTML })
+
 
 
 };

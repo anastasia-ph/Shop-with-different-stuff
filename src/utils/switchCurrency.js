@@ -1,6 +1,4 @@
 export function switchCurrency(e) {
+    this.props.sendCurrency(e.currentTarget.children[0].innerHTML)
     localStorage.setItem("currentCurrency", e.currentTarget.children[0].innerHTML)
-    console.log(e.currentTarget.children[0].innerHTML)
-    this.setState({ currentCurrency: e.currentTarget.children[0].innerHTML })
-    this.setState({ Displayed: !this.state.Displayed })
 }

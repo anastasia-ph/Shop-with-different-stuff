@@ -1,12 +1,15 @@
 @import "./colors";
 
 .header-block__header {
-    height: 80px;
+    height: 78px;
     width: 100%;
     display: flex;
+    background-color: $white;
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
+    z-index: 2;
+
 
 
 }

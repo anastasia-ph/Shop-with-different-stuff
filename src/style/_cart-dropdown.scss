@@ -1,0 +1,232 @@
+@import "./colors";
+
+.cart-dropdown__container {
+    z-index: 3;
+    width: 325px;
+    height: 477px;
+
+    padding: 32px 16px 32px 16px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: $white;
+    margin-top: 77px;
+    margin-right: 78px;
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (min-width:1200px) {
+        height: 677px;
+    }
+
+}
+
+.cart-dropdown__title {
+    display: flex;
+    flex-direction: row;
+}
+
+.cart-dropdown__title-text {
+    font: 700 16px "Raleway";
+    color: $black;
+    margin: 0 0 0 0;
+    margin-right: 3px;
+}
+
+.cart-dropdown__title-value {
+    font: 500 16px "Raleway";
+    margin: 0 0 0 0;
+    color: $black;
+}
+
+.cart-item-dropdown__container {
+    height: max-content;
+    overflow: scroll;
+}
+
+.cart-item__container {
+    height: 190px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px 0 20px 0;
+}
+
+.cart-item-dropdown__product-container {
+    width: 136px;
+    margin: 0 0 28px 0;
+}
+
+.cart-item-dropdown__product-brand {
+    font: 300 16px "Raleway";
+    color: $black;
+    margin: 0 0 5px 0;
+}
+
+.cart-item-dropdown__product-title {
+    font: 300 16px "Raleway";
+    color: $black;
+    margin: 5px 0 0 0;
+}
+
+.cart-item-dropdown__product-price {
+    font: 500 16px "Raleway";
+    color: $black;
+    margin: 8px 0 8px 0;
+}
+
+.cart-item-dropdown__attributes {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-dropdown-attribute__name {
+    font: 400 14px "Raleway";
+    color: $black;
+    margin: 2px 0 8px 0;
+}
+
+.item-dropdown-attribute__values {
+    display: flex;
+    flex-direction: row;
+}
+
+.item-dropdown-attribute-value__text {
+    cursor: default;
+    margin: 0 6px 0 6px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $black;
+    font: 400 14px "Source Sans Pro";
+
+
+    &:first-child {
+        margin: 0 6px 0 0;
+    }
+
+    &:last-child {
+        margin: 0 0 0 6px;
+    }
+}
+
+.item-dropdown__value-text_selected {
+    background-color: $black;
+    color: $white;
+}
+
+.item-dropdown-attribute-value__color {
+    cursor: pointer;
+    margin: 0 4px 0 4px;
+    width: 24px;
+    height: 24px;
+    border: 2px solid transparent;
+
+    &:first-child {
+        margin: 0 4px 0 0;
+    }
+
+    &:last-child {
+        margin: 0 0 0 4px;
+    }
+
+}
+
+.item-dropdown__value-color_selected {
+    width: 24px;
+    height: 24px;
+    border: 2px solid $green;
+
+}
+
+.cart-item-dropdown__buttons-container {
+    width: 24px;
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.buttons-container__amount-button {
+    width: 24px;
+    height: 24px;
+    border: 1px solid $black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    margin: 0 0 0 0;
+    font: 50 30px "Raleway Thin";
+    cursor: pointer;
+}
+
+.buttons-container__amount {
+    font: 500 16px "Raleway";
+    color: $black;
+
+}
+
+.cart-item-dropdown__image-container {
+    width: 121px;
+    height: 190px;
+    display: flex;
+    align-items: center;
+    margin: 0 0 0 8px;
+    background-color: $white;
+
+}
+
+.cart-item-dropdown__image {
+    width: 100%;
+}
+
+.cart-dropdown__total-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.cart-dropdown__total-text {
+    font: 500 16px "Roboto";
+    color: $black;
+}
+
+.cart-dropdown__total-value {
+    font: 700 16px "Raleway";
+    color: $black;
+}
+
+.cart-dropdown__buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.cart-dropdown__view-bag_button {
+    width: 140px;
+    height: 43px;
+    border: 1px solid $black;
+    font: 700 14px "Raleway";
+    color: $black;
+    background-color: $white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    box-sizing: border-box;
+}
+
+.cart-dropdown__checkout_button {
+    width: 140px;
+    height: 43px;
+    font: 700 14px "Raleway";
+    color: $white;
+    background-color: $green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+}

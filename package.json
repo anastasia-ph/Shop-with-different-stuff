@@ -9,6 +9,8 @@
     "@testing-library/user-event": "14.4.3",
     "@tilework/opus": "^0.0.10",
     "graphql": "16.6.0",
+    "jquery": "^3.6.1",
+    "mathjs": "^11.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-redux": "^8.0.2",

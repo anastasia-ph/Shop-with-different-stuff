@@ -8,15 +8,19 @@ import {
 import "./style/main.css"
 import { onError } from '@apollo/client/link/error'
 import React from 'react';
-import { HeaderBlock } from './components/HeaderBlock';
-import { ProductsBlock } from './components/ProductsBlock';
+import HeaderBlock from './components/HeaderBlock';
+import ProductsBlock from './components/ProductsBlock';
 import { GET_CATEGORIES } from "./GRAPHQL/Queries";
 import { GET_CURRENCIES } from './GRAPHQL/Queries';
 import { Query } from "@apollo/client/react/components"
-import { switchCategory } from './utils/switchCategory';
 import { switchCurrency } from "./utils/switchCurrency";
 import { CurrencyDropdown } from './components/CurrencyDropdown';
 import { addToCartFromCartIcon } from './utils/addToCartFromCartIcon';
+import { connect } from 'react-redux';
+import { CHANGE_CATEGORY, CHANGE_CURRENCY } from "./actions/actions";
+import store from "./store";
+
+
 
 
 //add behaviour if error occurs
@@ -38,7 +42,7 @@ const client = new ApolloClient({
 export class App extends React.Component {
   state = {
     currentCategory: localStorage.getItem("currentCategory"),
-    Displayed: false,
+    isCurrencyBlockDisplayed: false,
     currentCurrency: localStorage.getItem("currentCurrency"),
     itemsInCart: 0
   }
@@ -52,9 +56,15 @@ export class App extends React.Component {
           {({ data, loading, error }) => {
             if (loading) return <p>loading</p>
             if (error) return <p>error</p>;
-            if (!localStorage.getItem("currentCategory")) {
-              localStorage.setItem("currentCategory", data.categories[0].name);
-              this.setState({ currentCategory: localStorage.getItem("currentCategory") })
+            {
+              // on this stage we initialize current categorie value to use it later withing components with redux
+              {
+                console.log(store.getState())
+                !localStorage.getItem("currentCategory") &&
+                  localStorage.setItem("currentCategory", data.categories[0].name)
+                this.props.sendCategory(localStorage.getItem("currentCategory"))
+
+              }
             }
 
           }}
@@ -65,15 +75,15 @@ export class App extends React.Component {
             if (error) return <p>error</p>;
             if (!localStorage.getItem("currentCurrency")) {
               localStorage.setItem("currentCurrency", data.currencies[0].symbol);
-              this.setState({ currentCurrency: data.currencies[0].symbol })
+              this.props.sendCurrency(localStorage.getItem("currentCurrency"))
             }
           }}
         </Query >
 
         <div className="wrapper">
-          <HeaderBlock itemsInCart={this.state.itemsInCart} switchCategory={switchCategory.bind(this)} symbol={this.state.currentCurrency} currencySwitcher={() => this.setState({ Displayed: !this.state.Displayed })}></HeaderBlock>
-          {this.state.Displayed && <CurrencyDropdown switchCurrency={switchCurrency.bind(this)}></CurrencyDropdown>}
-          <ProductsBlock category={this.state.currentCategory} currency={this.state.currentCurrency} addToCart={addToCartFromCartIcon.bind(this)}></ProductsBlock>
+          <HeaderBlock itemsInCart={this.state.itemsInCart} symbol={this.state.currentCurrency} currencySwitcher={() => this.setState({ isCurrencyBlockDisplayed: !this.state.isCurrencyBlockDisplayed })}></HeaderBlock>
+          {this.state.isCurrencyBlockDisplayed && <CurrencyDropdown switchCurrency={switchCurrency.bind(this)}></CurrencyDropdown>}
+          <ProductsBlock currency={this.state.currentCurrency} category={this.state.currentCategory} addToCart={addToCartFromCartIcon.bind(this)}></ProductsBlock>
         </div>
       </ApolloProvider >
 
@@ -81,6 +91,18 @@ export class App extends React.Component {
   }
 }
 
+const mapDispatchToProps = function (dispatch) {
+  return {
+    sendCategory: (value) => dispatch({
+      "type": CHANGE_CATEGORY,
+      "currentCategory": value
+    }),
+    sendCurrency: (value) => dispatch({
+      type: CHANGE_CURRENCY,
+      "currentCurrency": value
+    })
+  }
+}
 
 
-export default App;
+export default connect(null, mapDispatchToProps)(App);

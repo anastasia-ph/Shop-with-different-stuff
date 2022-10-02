@@ -1,18 +1,12 @@
-import { CHANGE_CATEGORY } from "../actions/actions"
+import { combineReducers } from "redux";
+import { currentCategoryReducer } from "./currentCategoryReducer";
+import { shopCartReducer } from "./itemsInCartReducer";
+import { currentCurrencyReducer } from "./currentCurrencyReducer"
+import { switchCartDropdown } from "./switchCartDropdown";
 
-const initialState = {
-    currentCategory: localStorage.getItem("currentCategory")
-}
-function shopReducer(state = initialState, action) {
-    switch (action.type) {
-        case CHANGE_CATEGORY:
-            return {
-                currentCategory: state.currentCategory
-            };
-        default:
-            return state;
-
-    }
-}
-
-export default shopReducer
+export const rootReducer = combineReducers({
+    categoryReducer: currentCategoryReducer,
+    itemsInCart: shopCartReducer,
+    currencyReducer: currentCurrencyReducer,
+    switchCartDropdown: switchCartDropdown
+})
