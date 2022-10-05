@@ -1,27 +1,36 @@
 import { Query } from "@apollo/client/react/components"
 import React from "react";
-import { GET_ATTRIBUTES_BY_ID } from "../GRAPHQL/Queries";
-import { INCREASE_AMOUNT_OF_ITEM } from "../actions/actions";
-import { DECREASE_AMOUNT_OF_ITEM } from "../actions/actions";
+import { GET_PRODUCTS_BY_ID } from "../GRAPHQL/Queries";
+import { COUNT_TOTAL, INCREASE_AMOUNT_OF_ITEM, DECREASE_AMOUNT_OF_ITEM, SIMULATE_PURCHASE } from "../actions/actions";
 import { connect } from "react-redux";
 import { round } from "mathjs";
 import { changeAmountOfItem } from "../utils/changeAmountOfItem";
+import { Navigate } from "react-router";
+import { countTotalAmount } from "../utils/countTotalAmountDropdown";
+import { simulatePurchase } from "../utils/simulatePurchase";
 
 
 class CartDropdown extends React.Component {
 
+    componentDidMount() {
+        window.addEventListener("load", countTotalAmount())
 
+    }
+    componentDidUpdate() {
+        countTotalAmount()
+    }
 
     constructor(props) {
         super(props);
-
-
+        this.state = {
+            isCartPageOpen: false
+        }
     }
-    // increaseTotalAmount(arr) {
-    //     let sumUpAmount = arr.reduce((a, b) => a + b, 1)
-    //     document.getElementById("total-amount").innerHTML = `${round(sumUpAmount, 2)}${this.props.currentCurrency}`
 
-    // }
+    setIsCartPageOpen = () => {
+        this.setState({ isCartPageOpen: true })
+    }
+
 
     render() {
         let arr = []
@@ -32,7 +41,7 @@ class CartDropdown extends React.Component {
                     <p className="cart-dropdown__title-value" >{this.props.amountOfItems != "undefined" ? this.props.amountOfItems : 0} {(this.props.amountOfItems === 1) ? "item" : "items"}</p>
                 </div>
                 <div className="cart-item-dropdown__container">
-                    {this.props.itemsInCart.map((element) => <Query query={GET_ATTRIBUTES_BY_ID} variables={{ "id": element.id }}>
+                    {this.props.itemsInCart.length > 0 ? this.props.itemsInCart.map((element) => <Query query={GET_PRODUCTS_BY_ID} variables={{ "id": element.id }}>
 
                         {({ data, error, loading }) => {
 
@@ -43,6 +52,10 @@ class CartDropdown extends React.Component {
                             let usedCurrency = Object.keys(data).map((item) => data[item].prices.filter((price) => price.currency.symbol == this.props.currentCurrency))
                             usedCurrency = usedCurrency[0]
                             arr.push(round(usedCurrency[0].amount * element.amount, 2))
+                            let result = arr.reduce((a, b) => a + b, 0)
+
+                            // this.props.countTotalAmount(result)
+
 
                             return (
 
@@ -76,7 +89,7 @@ class CartDropdown extends React.Component {
 
                                                 </div>
                                             </div>
-                                            <div className="cart-item-dropdown__buttons-container">
+                                            <div className="cart__buttons-container">
                                                 <p className="buttons-container__amount-button" onClick={changeAmountOfItem.bind(this)}>+</p>
                                                 <p className="buttons-container__amount">{element.amount}</p>
                                                 <p className="buttons-container__amount-button" onClick={changeAmountOfItem.bind(this)}>-</p>
@@ -88,18 +101,18 @@ class CartDropdown extends React.Component {
                                         </div>
                                     )}
                                 </>
-                                // <CartItemDropdown dataForCarts={data}></CartItemDropdown>
                             )
                         }}
-                    </Query>)}
+                    </Query>) : <p className="cart-item-dropdown__product-brand">No items here yet..</p>}
                 </div>
-                <div className="cart-dropdown__total-container">
+                <div className="cart-dropdown__total-container" >
                     <p className="cart-dropdown__total-text">Total</p>
                     <p id="total-amount" className="cart-dropdown__total-value"></p>
                 </div>
                 <div className="cart-dropdown__buttons_container">
-                    <div className="cart-dropdown__view-bag_button">View Bag</div>
-                    <div className="cart-dropdown__checkout_button">Check out</div>
+                    <div className="cart-dropdown__view-bag_button" onClick={this.setIsCartPageOpen}>View Bag</div>
+                    {this.state.isCartPageOpen && <Navigate to="/cart" />}
+                    <div className={this.props.itemsInCart.length > 0 ? "cart-dropdown__checkout_button" : "cart-dropdown__checkout_button_inactive"} onClick={this.props.itemsInCart.length > 0 ? simulatePurchase.bind(this) : undefined}>Check out</div>
                 </div>
             </div>
         )
@@ -107,8 +120,10 @@ class CartDropdown extends React.Component {
 }
 const mapStateToProps = function (state) {
     return {
-        amountOfItems: state.itemsInCart.amountOfItemsNumber,
+        itemsInCart: state.itemsInCart.cart,
 
+        amountOfItems: state.itemsInCart.amountOfItemsNumber,
+        total: state.itemsInCart.totalAmount,
         currentCurrency: state.currencyReducer.currentCurrency
     }
 }
@@ -122,6 +137,15 @@ const mapDispatchToProps = function (dispatch) {
         decreaseAmountOfItem: (value) => dispatch({
             "type": DECREASE_AMOUNT_OF_ITEM,
             "unique_key": value,
+
+        }),
+        countTotalAmount: (value) => dispatch({
+            "type": COUNT_TOTAL,
+            "totalAmount": value
+
+        }),
+        simulatePurchase: () => dispatch({
+            "type": SIMULATE_PURCHASE
 
         })
     }

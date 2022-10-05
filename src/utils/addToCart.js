@@ -2,7 +2,7 @@ import $ from "jquery"
 import store from "../store";
 
 
-export function selectSpecificAttributes() {
+export function addToCart() {
     let unsubscribe = store.subscribe(() => {
         localStorage.setItem("itemsPresentInCart", JSON.stringify(store.getState().itemsInCart.cart))
     })

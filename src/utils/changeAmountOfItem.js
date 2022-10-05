@@ -7,9 +7,16 @@ export function changeAmountOfItem(e) {
 
     })
     let action = e.target.innerHTML
-    let itemID = (e.target.parentElement).parentElement.id
+    let itemID = e.target.parentElement.parentElement.id
+    if (itemID == "") {
+        itemID = (e.target.parentElement).parentElement.parentElement.id
+        itemID = itemID.slice(0, itemID.lastIndexOf("-"))
+
+    }
 
     action === "+" ? this.props.increaseAmountOfItem(itemID) : this.props.decreaseAmountOfItem(itemID)
+
+
 
 
     unsubscribe()

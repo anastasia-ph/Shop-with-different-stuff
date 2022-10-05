@@ -3,9 +3,7 @@
 .cart-dropdown__container {
     z-index: 3;
     width: 325px;
-    height: fit-content;
-    max-height: 477px;
-
+    max-height: 577px;
     padding: 32px 16px 32px 16px;
     position: absolute;
     right: 0;
@@ -15,8 +13,11 @@
     margin-right: 78px;
     display: flex;
     flex-direction: column;
+    animation: growDown 300ms ease-in-out;
 
-    @media screen and (min-width:1200px) {
+    transform-origin: top center;
+
+    @media screen and (min-width:1920px) {
         height: fit-content;
         max-height: 677px;
     }
@@ -26,6 +27,7 @@
 .cart-dropdown__title {
     display: flex;
     flex-direction: row;
+    margin: 0 0 32px 0;
 }
 
 .cart-dropdown__title-text {
@@ -81,7 +83,7 @@
     margin: 8px 0 8px 0;
 }
 
-.cart-item-dropdown__attributes {
+.cart__buttons-container {
     display: flex;
     flex-direction: column;
 }
@@ -163,7 +165,7 @@
     border: 1px solid $black;
 }
 
-.cart-item-dropdown__buttons-container {
+.cart__buttons-container {
     width: 24px;
     display: flex;
 
@@ -240,6 +242,7 @@
     align-items: center;
     text-transform: uppercase;
     box-sizing: border-box;
+    cursor: pointer;
 }
 
 .cart-dropdown__checkout_button {
@@ -252,4 +255,31 @@
     justify-content: center;
     align-items: center;
     text-transform: uppercase;
+    cursor: pointer;
+}
+
+.cart-dropdown__checkout_button_inactive {
+    width: 140px;
+    height: 43px;
+    font: 700 14px "Raleway";
+    color: $white;
+    background-color: $gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+}
+
+@keyframes growDown {
+    0% {
+        transform: scaleY(0)
+    }
+
+    80% {
+        transform: scaleY(1.1)
+    }
+
+    100% {
+        transform: scaleY(1)
+    }
 }

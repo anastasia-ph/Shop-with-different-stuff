@@ -9,13 +9,14 @@
     align-items: center;
     flex-direction: row;
     z-index: 2;
+    position: static;
 
 
 
 }
 
 .header-block__categories-container {
-    margin: 0 0 0 85px;
+    margin: 28px 0 0 85px;
     width: 234px;
     height: 56px;
     display: flex;
@@ -59,6 +60,7 @@
     display: flex;
     align-self: center;
     justify-self: center;
+    cursor: pointer;
 }
 
 .header-block__icon {

@@ -6,27 +6,43 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import {
   ApolloClient,
+  ApolloProvider,
   InMemoryCache
 } from '@apollo/client';
+import { onError } from '@apollo/client/link/error'
 import { Provider } from 'react-redux';
 import store from './store';
-
+import { ProductDescriptionPage } from './PDP';
+import { CartPage } from './CartPage';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const client = new ApolloClient({
   uri: "http://localhost:4000/",
   cache: new InMemoryCache()
 });
 
+//add behaviour if error occurs
+const errorLink = onError(({ graphqlErrors, networkErrors }) => {
+  if (graphqlErrors) {
+    graphqlErrors.map(({ message, location, path }) => {
+      alert(`Graphql error ${message}`)
+    })
+  }
+});
+
 root.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <Routes>
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
 
-        <Route path="/" element={<App />} />
+          <Route path="/" element={<App />} />
+          <Route path="product" element={<ProductDescriptionPage />} />
+          <Route path="cart" element={<CartPage />} />
 
-      </Routes>
-    </BrowserRouter>
-  </Provider>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
+  </ApolloProvider>
 
 );
 

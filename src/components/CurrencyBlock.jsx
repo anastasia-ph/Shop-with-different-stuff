@@ -1,9 +1,10 @@
 import React from "react";
 import { GET_CURRENCIES } from "../GRAPHQL/Queries";
 import { Query } from "@apollo/client/react/components"
+import { connect } from "react-redux";
 
 
-export class CurrencyBlock extends React.Component {
+class CurrencyBlock extends React.Component {
     render() {
 
         return (
@@ -18,7 +19,7 @@ export class CurrencyBlock extends React.Component {
                             localStorage.setItem("currentCurrency", data.currencies[0].symbol)
                         }
                         return (
-                            <p className="currency-block__symbol">{JSON.parse(localStorage.getItem("currentCurrency"))["symbol"]}</p>
+                            <p className="currency-block__symbol">{this.props.currentCurrency}</p>
                         )
 
                     }}
@@ -30,3 +31,11 @@ export class CurrencyBlock extends React.Component {
         )
     }
 }
+
+const mapStateToProps = function (state) {
+    return {
+        currentCurrency: state.currencyReducer.currentCurrency
+
+    }
+}
+export default connect(mapStateToProps, undefined)(CurrencyBlock)

@@ -33,7 +33,7 @@ query getCategoriesFilter($title:String!){
   }
 }`
 
-export const GET_ATTRIBUTES_BY_ID = gql`query getAttributesById($id:String!){
+export const GET_PRODUCTS_BY_ID = gql`query getProductsById($id:String!){
   product(id:$id){
     brand
     id
@@ -58,4 +58,19 @@ export const GET_ATTRIBUTES_BY_ID = gql`query getAttributesById($id:String!){
         amount
       }
   }
+}`
+export const GET_ATTRIBUTES_BY_ID = gql`query getAttributesById($id:String!){
+  product(id:$id){
+   id
+   inStock
+    attributes{
+      name
+      type
+      items{
+        displayValue
+        value
+        id
+      } 
+    }
+  }  
 }`

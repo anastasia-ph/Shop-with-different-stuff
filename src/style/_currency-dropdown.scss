@@ -13,13 +13,9 @@
     display: flex;
     flex-direction: column;
     box-shadow: 0 4px 35px $shadow-color;
+    animation: growDown 300ms ease-in-out;
 
-    @for $i from 0 through 4 {
-        .item#{$i} {
-            transform-origin: top center;
-            animation: 300ms #{($i+1)*60ms} ease-in-out forwards slideFromTopToBottom
-        }
-    }
+    transform-origin: top center
 }
 
 
@@ -52,19 +48,16 @@
     }
 }
 
-@keyframes slideFromTopToBottom {
+@keyframes growDown {
     0% {
-        opacity: 0;
-        transform: rotateX(-90deg);
+        transform: scaleY(0)
     }
 
-    50% {
-        transform: rotateX(-20deg);
+    80% {
+        transform: scaleY(1.1)
     }
 
     100% {
-        opacity: 1;
-        transform: rotateX(0deg);
+        transform: scaleY(1)
     }
-
 }

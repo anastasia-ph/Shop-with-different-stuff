@@ -1,22 +1,28 @@
 import React from "react";
 import { Query } from "@apollo/client/react/components"
 import { GET_PRODUCTS_BY_CATEGORY } from "../GRAPHQL/Queries";
-import { ProductCard } from "./ProductCard";
+import ProductCard from "./ProductCard";
 import PDP from "./ProductDescriptionPage";
 import { connect } from "react-redux";
+import store from "../store";
+
+import { SET_ID } from "../actions/actions";
+import { Navigate } from "react-router-dom"
 
 class ProductsBlock extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            openPDP: false,
-            id: "id"
+            openPDP: false
         }
     }
 
     onClickCard = (e) => {
-        this.setState({ openPDP: !this.state.openPDP, id: e.currentTarget.id })
+        this.setState({ openPDP: !this.state.openPDP })
+        localStorage.setItem("currentID", e.currentTarget.id)
+        this.props.setID(e.currentTarget.id)
+
 
     }
 
@@ -51,7 +57,7 @@ class ProductsBlock extends React.Component {
                         </Query>
 
                     </div>
-                    {this.state.openPDP && <PDP id={this.state.id} currency={this.props.currency}></PDP>}
+                    {this.state.openPDP && <Navigate to="/product"></Navigate>}
                 </div>
             </>
         )
@@ -62,9 +68,19 @@ const mapStateToProps = function (state) {
         currentCategory: state.categoryReducer.currentCategory,
         currentCurrency: state.currencyReducer.currentCurrency,
 
-        isCartDropdown: state.switchCartDropdown.isCartDropdown
+        isCartDropdown: state.switchCartDropdown.isCartDropdown,
+        id: state.setID.id
 
 
     }
 }
-export default connect(mapStateToProps)(ProductsBlock)
+
+const mapDispatchToProps = function (dispatch) {
+    return {
+        setID: (value) => dispatch({
+            "type": SET_ID,
+            "ID": value
+        })
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsBlock)

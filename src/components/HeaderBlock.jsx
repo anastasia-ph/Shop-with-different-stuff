@@ -5,10 +5,11 @@ import { CHANGE_CATEGORY, SWITCH_CART_DROPDOWN, CHANGE_CURRENCY } from "../actio
 import { switchCurrency } from "../utils/switchCurrency";
 import { CurrencyDropdown } from './CurrencyDropdown';
 import { Query } from "@apollo/client/react/components"
-import { CurrencyBlock } from "./CurrencyBlock";
+import CurrencyBlock from "./CurrencyBlock";
 import { connect } from "react-redux";
 import { switchCategory } from '../utils/switchCategory';
 import CartDropdown from "./CartDropdown";
+import { Navigate } from "react-router";
 
 
 
@@ -23,6 +24,7 @@ class HeaderBlock extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            isOnHomePage: false,
             currentCategory: localStorage.getItem("currentCategory"),
             isCurrencyBlockDisplayed: false,
             currentCurrency: localStorage.getItem("currentCurrency")
@@ -37,7 +39,6 @@ class HeaderBlock extends React.Component {
     render() {
         return (
             <div className="header-block__header">
-
                 < Query query={GET_CATEGORIES}>
                     {({ data, loading, error }) => {
                         if (loading) return <p>loading</p>
@@ -50,7 +51,8 @@ class HeaderBlock extends React.Component {
                     }}
                 </Query >
                 <div className="header-block__icon-container">
-                    <img className="header-block__icon" src="./assets/shop_icon.svg" alt="shop icon"></img>
+                    <img className="header-block__icon" src="./assets/shop_icon.svg" alt="shop icon" onClick={() => this.setState({ isOnHomePage: true })}></img>
+                    {this.state.isOnHomePage && <Navigate to="/"></Navigate>}
                 </div>
                 <div className="header-block__actions-container">
                     <CurrencyBlock symbol={this.state.currentCurrency} isOpen={this.state.isCurrencyBlockDisplayed} currencySwitcher={() => this.setState({ isCurrencyBlockDisplayed: !this.state.isCurrencyBlockDisplayed })}></CurrencyBlock>

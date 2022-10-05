@@ -1,0 +1,241 @@
+@import "./colors";
+
+.fullsize-cart__wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0 100px 0 100px;
+    height: 88vh;
+
+
+
+}
+
+.fullsize-cart__items-wrapper_empty-cart {
+    height: 50vh;
+}
+
+.fullsize-cart__title {
+    font: 700 28px "Raleway";
+    color: $black;
+    text-transform: uppercase;
+    margin: 30px 0 27.5px 0;
+
+    @media screen and (min-width:1920px) {
+        font: 700 32px "Raleway";
+        margin: 80px 0 55px 0;
+
+    }
+}
+
+.fullsize-cart__items-wrapper {
+    overflow: scroll;
+
+    @media screen and (min-width:1920px) {
+        height: max-content;
+        max-height: 100vh;
+    }
+}
+
+.fullsize-cart__items-container {
+    width: 100%;
+    display: flex;
+    height: fit-content;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 24px 0 24px 0;
+    border-top: 1px solid $gray;
+    border-bottom: 1px solid $gray;
+}
+
+.fullsize-cart__item-left-container {
+    width: 290px;
+    height: max-content;
+}
+
+.fullsize-cart__item-right-container {
+    display: flex;
+    flex-direction: row;
+    width: max-content;
+}
+
+.fullsize-cart__item-brand {
+    font: 600 25px "Raleway";
+    color: $black ;
+    margin: 0 0 8px 0;
+}
+
+.fullsize-cart__item-title {
+    font: 400 25px "Raleway";
+    color: $black ;
+    margin: 8px 0 20px 0;
+}
+
+.fullsize-cart__item-price {
+    margin: 0 0 20px 0;
+    font: 700 22px "Raleway";
+    color: $black;
+
+    @media screen and (min-width:1300px) {
+        font: 700 24px "Raleway";
+
+    }
+}
+
+.fullsize-cart__item-attributes__group {
+    margin: 8px 0 8px 0;
+
+    &:last-child {
+        margin: 8px 0 0 0;
+    }
+}
+
+.attribute-value__text_no-hover {
+    margin: 0 6px 0 6px;
+    width: 65px;
+    height: 43px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $black;
+
+
+    &:first-child {
+        margin: 0 6px 0 0;
+    }
+
+    &:last-child {
+        margin: 0 0 0 6px;
+    }
+}
+
+.attribute-value__text_selected {
+    margin: 0 6px 0 6px;
+    width: 65px;
+    height: 43px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $black;
+    color: $white;
+}
+
+.attribute-value__color_no-hover {
+    margin: 0 4px 0 4px;
+    width: 35px;
+    height: 35px;
+    border: 2px solid transparent;
+
+    &:first-child {
+        margin: 0 4px 0 0;
+    }
+
+    &:last-child {
+        margin: 0 0 0 4px;
+    }
+
+
+
+}
+
+.color_white-border_no-hover {
+    width: 37px;
+    height: 37px;
+    border: 1px solid $black;
+}
+
+.attribute-value__color_selected {
+    margin: 0 4px 0 4px;
+    width: 35px;
+    height: 35px;
+
+    border: 2px solid $green;
+
+
+
+}
+
+.fullsize-cart__image-container {
+    margin-left: 24px;
+    width: 200px;
+    height: 288px;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    align-items: center;
+}
+
+.fullsize-cart__image-container_jacket {
+    margin-left: 24px;
+    width: 200px;
+    height: 288px;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.fullsize-cart__image {
+    height: 50%;
+}
+
+.fullsize-cart__image_jacket {
+    height: 100%;
+}
+
+.fullsize-cart__total-block_wrapper {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+
+}
+
+.total-block__items-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin: 4px 0 4px 0;
+
+    &:first-child {
+        margin: 0 0 4px 0;
+    }
+
+    &:last-child {
+        margin: 4px 0 0 0;
+    }
+
+}
+
+.total-block__item {
+    font: 400 24px "Raleway";
+    color: $black;
+    margin: 0 0 0 0;
+}
+
+.total-block__value {
+    font: 700 22px "Raleway";
+    color: $black;
+    margin: 0 0 0 0;
+}
+
+.total-block__order-button {
+    margin: 12px 0 0 0;
+    width: 279px;
+    height: 43px;
+    background-color: $green;
+    color: $white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.total-block__order-button_inactive {
+    margin: 12px 0 0 0;
+    width: 279px;
+    height: 43px;
+    background-color: $gray;
+    color: $white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+}

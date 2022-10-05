@@ -1,44 +1,21 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  HttpLink,
-  from
-} from '@apollo/client';
+
 import "./style/main.css"
-import { onError } from '@apollo/client/link/error'
 import React from 'react';
 import HeaderBlock from './components/HeaderBlock';
 import ProductsBlock from './components/ProductsBlock';
-import { GET_CATEGORIES } from "./GRAPHQL/Queries";
-import { GET_CURRENCIES } from './GRAPHQL/Queries';
+import { GET_CURRENCIES, GET_CATEGORIES } from './GRAPHQL/Queries';
 import { Query } from "@apollo/client/react/components"
-
-import { addToCartFromCartIcon } from './utils/addToCartFromCartIcon';
 import { connect } from 'react-redux';
-import { CHANGE_CATEGORY, CHANGE_CURRENCY } from "./actions/actions";
-import store from "./store";
+import { CHANGE_CATEGORY, CHANGE_CURRENCY, SWITCH_CART_DROPDOWN } from "./actions/actions";
 
 
 
 
-//add behaviour if error occurs
-const errorLink = onError(({ graphqlErrors, networkErrors }) => {
-  if (graphqlErrors) {
-    graphqlErrors.map(({ message, location, path }) => {
-      alert(`Graphql error ${message}`)
-    })
+class App extends React.Component {
+  componentDidMount() {
+    this.props.switchCartDropdown(true)
+
   }
-})
-// link to the endpoint
-const link = from([errorLink, new HttpLink({ uri: "http://localhost:4000/" })])
-//setup client
-const client = new ApolloClient({
-  link: link,
-  cache: new InMemoryCache()
-});
-
-export class App extends React.Component {
   state = {
     currentCategory: localStorage.getItem("currentCategory"),
     isCurrencyBlockDisplayed: false,
@@ -49,7 +26,7 @@ export class App extends React.Component {
 
     return (
 
-      <ApolloProvider client={client}>
+      <div>
         < Query query={GET_CATEGORIES}>
           {({ data, loading, error }) => {
             if (loading) return <p>loading</p>
@@ -57,10 +34,10 @@ export class App extends React.Component {
             {
               // on this stage we initialize current categorie value to use it later withing components with redux
               {
-                console.log(store.getState())
-                !localStorage.getItem("currentCategory") &&
+                if (!localStorage.getItem("currentCategory")) {
                   localStorage.setItem("currentCategory", data.categories[0].name)
-                this.props.sendCategory(localStorage.getItem("currentCategory"))
+                  this.props.sendCategory(localStorage.getItem("currentCategory"))
+                }
 
               }
             }
@@ -80,14 +57,19 @@ export class App extends React.Component {
 
         <div className="wrapper">
           <HeaderBlock itemsInCart={this.state.itemsInCart}  ></HeaderBlock>
-          <ProductsBlock currency={this.state.currentCurrency} category={this.state.currentCategory} addToCart={addToCartFromCartIcon.bind(this)}></ProductsBlock>
+          <ProductsBlock currency={this.state.currentCurrency} category={this.state.currentCategory}></ProductsBlock>
         </div>
-      </ApolloProvider >
+      </div >
 
     )
   }
 }
+const mapStateToProps = function (state) {
+  return {
+    isCartDropdown: state.switchCartDropdown.isCartDropdown,
 
+  }
+}
 const mapDispatchToProps = function (dispatch) {
   return {
     sendCategory: (value) => dispatch({
@@ -97,9 +79,15 @@ const mapDispatchToProps = function (dispatch) {
     sendCurrency: (value) => dispatch({
       type: CHANGE_CURRENCY,
       "currentCurrency": value
-    })
+    }),
+    switchCartDropdown: (value) => dispatch({
+      "type": SWITCH_CART_DROPDOWN
+      ,
+      "isCartDropdown": !value
+
+    }),
   }
 }
 
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

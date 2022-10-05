@@ -1,7 +1,7 @@
-import { ADD_NEW_TO_CART, INCREASE_AMOUNT_OF_ITEM, DECREASE_AMOUNT_OF_ITEM, UPDATE_AMOUNT_OF_ITEM } from "../actions/actions"
+import { ADD_NEW_TO_CART, INCREASE_AMOUNT_OF_ITEM, DECREASE_AMOUNT_OF_ITEM, UPDATE_AMOUNT_OF_ITEM, COUNT_TOTAL, SIMULATE_PURCHASE } from "../actions/actions"
 
 
-export function shopCartReducer(state = { cart: JSON.parse(localStorage.getItem("itemsPresentInCart")) || [], amountOfItemsNumber: localStorage.getItem("amountOfItems") || 0 }, action) {
+export function shopCartReducer(state = { cart: JSON.parse(localStorage.getItem("itemsPresentInCart")) || [], amountOfItemsNumber: localStorage.getItem("amountOfItems") || 0, totalAmount: 0 }, action) {
     switch (action.type) {
         case ADD_NEW_TO_CART:
             return {
@@ -30,8 +30,17 @@ export function shopCartReducer(state = { cart: JSON.parse(localStorage.getItem(
 
                 cart: newCart,
                 amountOfItemsNumber: state.amountOfItemsNumber - 1
-
-
+            }
+        case COUNT_TOTAL:
+            return {
+                ...state,
+                totalAmount: action.totalAmount
+            }
+        case SIMULATE_PURCHASE:
+            return {
+                ...state,
+                cart: [],
+                amountOfItemsNumber: 0
             }
         default:
             return state;
