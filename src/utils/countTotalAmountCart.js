@@ -7,7 +7,7 @@ export function countTotalAmount() {
     if (PARSED_JSON !== null) {
         const PRICES = document.getElementsByClassName("fullsize-cart__item-price");
 
-        if (PRICES.length != PARSED_JSON.length) {
+        if (PRICES.length !== PARSED_JSON.length) {
             window.setTimeout(countTotalAmount, 5)
         }
         else {
@@ -21,8 +21,8 @@ export function countTotalAmount() {
                 result = result + Number(totalAmount[i])
             }
 
-            document.getElementsByClassName("value__tax")[0].innerHTML = result != 0 ? `${round((result / 100) * 21, 2)}${CURRENT_CURRENCY}` : `${0}${CURRENT_CURRENCY}`
-            document.getElementsByClassName("value__total-price")[0].innerHTML = result != 0 ? `${round(result)}${CURRENT_CURRENCY}` : `0${CURRENT_CURRENCY}`
+            document.getElementsByClassName("value__tax")[0].innerHTML = result !== 0 ? `${round((result / 100) * 21, 2)}${CURRENT_CURRENCY}` : `${0}${CURRENT_CURRENCY}`
+            document.getElementsByClassName("value__total-price")[0].innerHTML = result !== 0 ? `${round(result, 2)}${CURRENT_CURRENCY}` : `0${CURRENT_CURRENCY}`
         }
 
     }

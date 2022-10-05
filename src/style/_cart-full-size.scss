@@ -162,6 +162,7 @@
     justify-content: center;
     overflow: hidden;
     align-items: center;
+    position: relative
 }
 
 .fullsize-cart__image-container_jacket {
@@ -171,6 +172,7 @@
     display: flex;
     justify-content: center;
     overflow: hidden;
+    position: relative;
 }
 
 .fullsize-cart__image {
@@ -181,11 +183,27 @@
     height: 100%;
 }
 
+.cart__carousel-buttons-container {
+    width: 56px;
+    height: fit-content;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 0 18px 16px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .fullsize-cart__total-block_wrapper {
     display: flex;
     flex-direction: column;
     width: max-content;
 
+}
+
+.carousel-buttons-container__button {
+    cursor: pointer;
 }
 
 .total-block__items-wrapper {

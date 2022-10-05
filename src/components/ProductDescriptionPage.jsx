@@ -72,14 +72,14 @@ class PDP extends React.Component {
                                 <>
                                     <div className="pdp__side-images-container">
                                         {data.product.gallery.map((e, i) =>
-                                            <div className={i === 0 ? "pdp__images-preview-container pdp__images-preview-container_active" : "pdp__images-preview-container"} onClick={this.switchCurrentPreview.bind(this)}>
+                                            <div key={i} className={i === 0 ? "pdp__images-preview-container pdp__images-preview-container_active" : "pdp__images-preview-container"} onClick={this.switchCurrentPreview.bind(this)}>
 
                                                 <img className={data.product.inStock ? (data.product.name === "Jacket" ? "pdp__images-preview-jacket" : "pdp__images-preview") : (data.product.name === "Jacket" ? "pdp__images-preview-jacket product-card__image-outofstock" : "pdp__images-preview product-card__image-outofstock")} src={e} alt={data.product.name} onLoad={() => this.setState({ currentlyDisplayedPhoto: data.product.gallery[0], currentlyDisplayedName: data.product.name })} />
                                                 {/* maybe inerit for this below?? */}
                                             </div>)}
                                     </div>
                                     <div className={this.state.currentlyDisplayedName === "Jacket" ? "pdp__main-photo_container_jacket " : "pdp__main-photo_container"}>
-                                        <img className={data.product.inStock ? (this.state.currentlyDisplayedName === "Jacket" ? "pdp__main-photo_jacket" : "pdp__main-photo") : (this.state.currentlyDisplayedName === "Jacket" ? "pdp__main-photo_jacket product-card__image-outofstock" : "pdp__main-photo product-card__image-outofstock")} src={this.state.currentlyDisplayedPhoto}></img>
+                                        <img className={data.product.inStock ? (this.state.currentlyDisplayedName === "Jacket" ? "pdp__main-photo_jacket" : "pdp__main-photo") : (this.state.currentlyDisplayedName === "Jacket" ? "pdp__main-photo_jacket product-card__image-outofstock" : "pdp__main-photo product-card__image-outofstock")} src={this.state.currentlyDisplayedPhoto} alt={data.product.name}></img>
                                         {!data.product.inStock && <p className="product_card__outofstock-text">Out of stock</p>}
                                     </div>
                                     <div className="pdp__item-description">
@@ -101,8 +101,8 @@ class PDP extends React.Component {
                                             <p className="item-attribute__name">Price:</p>
                                             <div className="item-attribute__price">
                                                 {usedCurrency.map((e) => <>
-                                                    <p className="attribute-price_price">{e.amount}</p>
-                                                    <p className="attribute-price_price">{e.currency.symbol}</p>
+                                                    <p key={e.amount} className="attribute-price_price">{e.amount}</p>
+                                                    <p key={e.currency.symbol} className="attribute-price_price">{e.currency.symbol}</p>
                                                 </>
                                                 )}
                                             </div>

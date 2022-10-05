@@ -31,16 +31,16 @@ class App extends React.Component {
           {({ data, loading, error }) => {
             if (loading) return <p>loading</p>
             if (error) return <p>error</p>;
-            {
-              // on this stage we initialize current categorie value to use it later withing components with redux
-              {
-                if (!localStorage.getItem("currentCategory")) {
-                  localStorage.setItem("currentCategory", data.categories[0].name)
-                  this.props.sendCategory(localStorage.getItem("currentCategory"))
-                }
 
-              }
+            // on this stage we initialize current categorie value to use it later withing components with redux
+
+            if (!localStorage.getItem("currentCategory")) {
+              localStorage.setItem("currentCategory", data.categories[0].name)
+              this.props.sendCategory(localStorage.getItem("currentCategory"))
+
+
             }
+
 
           }}
         </Query >
@@ -50,7 +50,7 @@ class App extends React.Component {
             if (error) return <p>error</p>;
             if (!localStorage.getItem("currentCurrency")) {
               localStorage.setItem("currentCurrency", data.currencies[0].symbol);
-              this.props.sendCurrency(localStorage.getItem("currentCurrency"))
+              this.props.sendCurrency(data.currencies[0].symbol)
             }
           }}
         </Query >

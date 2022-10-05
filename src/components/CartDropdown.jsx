@@ -38,7 +38,7 @@ class CartDropdown extends React.Component {
             <div className="cart-dropdown__container">
                 <div className="cart-dropdown__title">
                     <p className="cart-dropdown__title-text">My Bag,  </p>
-                    <p className="cart-dropdown__title-value" >{this.props.amountOfItems != "undefined" ? this.props.amountOfItems : 0} {(this.props.amountOfItems === 1) ? "item" : "items"}</p>
+                    <p className="cart-dropdown__title-value" >{this.props.amountOfItems !== "undefined" ? this.props.amountOfItems : 0} {(this.props.amountOfItems === 1) ? "item" : "items"}</p>
                 </div>
                 <div className="cart-item-dropdown__container">
                     {this.props.itemsInCart.length > 0 ? this.props.itemsInCart.map((element) => <Query query={GET_PRODUCTS_BY_ID} variables={{ "id": element.id }}>
@@ -49,11 +49,9 @@ class CartDropdown extends React.Component {
                             if (error) return <p>Error!</p>
                             if (loading) return <p>Loading...</p>
 
-                            let usedCurrency = Object.keys(data).map((item) => data[item].prices.filter((price) => price.currency.symbol == this.props.currentCurrency))
+                            let usedCurrency = Object.keys(data).map((item) => data[item].prices.filter((price) => price.currency.symbol === this.props.currentCurrency))
                             usedCurrency = usedCurrency[0]
                             arr.push(round(usedCurrency[0].amount * element.amount, 2))
-                            let result = arr.reduce((a, b) => a + b, 0)
-
                             // this.props.countTotalAmount(result)
 
 
@@ -62,7 +60,7 @@ class CartDropdown extends React.Component {
                                 <>
                                     {Object.keys(data).map((item) =>
 
-                                        <div className="cart-item__container" id={element.unique_key}>
+                                        <div key={element.unique_key} className="cart-item__container" id={element.unique_key}>
 
                                             <div className="cart-item-dropdown__product-container" >
                                                 <p className="cart-item-dropdown__product-brand">{data[item].brand}</p>
@@ -75,12 +73,17 @@ class CartDropdown extends React.Component {
                                                         <p className="item-dropdown-attribute__name">{attribute.name}</p>
                                                         {/* and create separate html elements for each value in attributes group */}
                                                         <div className="item-dropdown-attribute__values">
+
+
                                                             {attribute.items.map((item, i) =>
+
                                                                 <p key={i} style={{ backgroundColor: item.value }} id={`${attribute.name}-${i}-${item.value}preview`}
+
                                                                     className={attribute.type === "text" ?
-                                                                        (Object.values(element).map((value) => (item.value === value)).indexOf(true) != -1 ? "item-dropdown-attribute-value__text item-dropdown__value-text_selected" : "item-dropdown-attribute-value__text")
+                                                                        //compare both value and keys as some values might be similar so the key is additional property to differentiate them
+                                                                        (Object.keys(element).map((value) => attribute.name === value && item.value === element[value]).indexOf(true) !== -1 ? "item-dropdown-attribute-value__text item-dropdown__value-text_selected" : "item-dropdown-attribute-value__text")
                                                                         :
-                                                                        (Object.values(element).map((value) => (item.value === value)).indexOf(true) != -1 ? "item-dropdown-attribute-value__color item-dropdown__value-color_selected" :
+                                                                        (Object.keys(element).map((value) => attribute.name === value && item.value === element[value]).indexOf(true) !== -1 ? "item-dropdown-attribute-value__color item-dropdown__value-color_selected" :
                                                                             (item.displayValue === "White" ? "item-dropdown-attribute-value__color value-color_white-border" : "item-dropdown-attribute-value__color")
                                                                         )}
                                                                 >{attribute.type === "text" && item.value}</p>)}
@@ -111,7 +114,7 @@ class CartDropdown extends React.Component {
                 </div>
                 <div className="cart-dropdown__buttons_container">
                     <div className="cart-dropdown__view-bag_button" onClick={this.setIsCartPageOpen}>View Bag</div>
-                    {this.state.isCartPageOpen && <Navigate to="/cart" />}
+                    {(this.state.isCartPageOpen && window.location.pathname !== "/cart") && <Navigate to="/cart" />}
                     <div className={this.props.itemsInCart.length > 0 ? "cart-dropdown__checkout_button" : "cart-dropdown__checkout_button_inactive"} onClick={this.props.itemsInCart.length > 0 ? simulatePurchase.bind(this) : undefined}>Check out</div>
                 </div>
             </div>

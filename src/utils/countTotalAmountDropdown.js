@@ -5,7 +5,7 @@ export function countTotalAmount() {
     const PRICES = document.getElementsByClassName("cart-item-dropdown__product-price");
     const CURRENT_CURRENCY = localStorage.getItem("currentCurrency")
     if (PARSED_JSON !== null) {
-        if (PRICES.length != PARSED_JSON.length) {
+        if (PRICES.length !== PARSED_JSON.length) {
             window.setTimeout(countTotalAmount, 5)
         }
         else {
@@ -19,7 +19,7 @@ export function countTotalAmount() {
                 result = result + Number(totalAmount[i])
             }
 
-            document.getElementsByClassName("cart-dropdown__total-value")[0].innerHTML = `${round(result)}${CURRENT_CURRENCY}`
+            document.getElementsByClassName("cart-dropdown__total-value")[0].innerHTML = `${round(result, 2)}${CURRENT_CURRENCY}`
         }
     }
     else {

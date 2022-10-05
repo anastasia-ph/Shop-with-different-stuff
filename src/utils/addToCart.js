@@ -31,12 +31,12 @@ export function addToCart() {
     //compare unique key with other unique keys in store
     let itemsPresentInCart = store.getState().itemsInCart.cart
     let index;
-    itemsPresentInCart.map((item, i) => item.unique_key == attributesValues.unique_key ? index = i : null)
+    itemsPresentInCart.map((item, i) => item.unique_key === attributesValues.unique_key ? index = i : null)
     //if index of item in store with similar is not exist, send data as new object to store.
     //if index exists, just increase the amount for specific product in store
     let amountOfItems = store.getState().itemsInCart.cart.reduce((sum, e) => sum + e.amount, 1)
     localStorage.setItem("amountOfItems", amountOfItems)
-    document.getElementById("attribute-not-set").innerHTML == "" && (index != undefined ? this.props.updateAmountInCart(index, amountOfItems) :
+    document.getElementById("attribute-not-set").innerHTML === "" && (index !== undefined ? this.props.updateAmountInCart(index, amountOfItems) :
         this.props.sendItemToCart(attributesValues, amountOfItems))
     this.setState({ amountOfItemsNumber: amountOfItems })
 
@@ -50,7 +50,9 @@ function compareTwoSetsOfAttributes(available, present) {
     Object.keys(present).map(e => presentAttributesValues.push(e))
     for (let i = 0; i < availableAttributesValues.length; i++) {
         if (presentAttributesValues.indexOf(availableAttributesValues[i]) < 0) {
-            document.getElementById("attribute-not-set").innerHTML = `* Please specify option "${availableAttributesValues[i]}"`
+
+
+            document.getElementById("attribute-not-set").innerHTML = `* Please specify all options!`
             break
         }
     }

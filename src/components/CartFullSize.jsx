@@ -7,6 +7,7 @@ import { round } from "mathjs";
 import { changeAmountOfItem } from "../utils/changeAmountOfItem";
 import { countTotalAmount } from "../utils/countTotalAmountCart";
 import { simulatePurchase } from "../utils/simulatePurchase";
+import { changePreviewInCartCarousel } from "../utils/changePreviewInCartCarousel";
 
 
 
@@ -16,6 +17,11 @@ class CartFullSize extends React.Component {
     constructor(props) {
         super(props);
         this.arr = []
+        this.state = {
+            isChangePreview: false,
+            idForCarousel: undefined,
+            currentEvent: undefined
+        }
     }
     componentDidMount() {
         this.props.switchCartDropdown(true)
@@ -26,10 +32,13 @@ class CartFullSize extends React.Component {
         countTotalAmount()
     }
 
+    changePreviewState(e) {
+        let parentClassName = e.target.parentNode.className.split(' ')[1]
+        this.setState({ currentEvent: e, idForCarousel: document.querySelector(`.${parentClassName}`).previousElementSibling.alt, isChangePreview: true })
+    }
 
 
     render() {
-        console.log(this.props.amountOfItems)
         return (
 
             <div className="fullsize-cart__wrapper" >
@@ -41,14 +50,14 @@ class CartFullSize extends React.Component {
 
                             if (error) return <p>Error!</p>
                             if (loading) return <p>Loading...</p>
-                            let usedCurrency = Object.keys(data).map((item) => data[item].prices.filter((price) => price.currency.symbol == this.props.currentCurrency))
+                            let usedCurrency = Object.keys(data).map((item) => data[item].prices.filter((price) => price.currency.symbol === this.props.currentCurrency))
                             usedCurrency = usedCurrency[0]
                             return (
 
                                 <>
                                     {Object.keys(data).map((item) =>
 
-                                        <div className="fullsize-cart__items-container" id={`${element.unique_key}-fullsize`}>
+                                        <div className="fullsize-cart__items-container" key={`${element.unique_key}-fullsize`} id={`${element.unique_key}-fullsize`}>
 
                                             <div className="fullsize-cart__item-left-container" >
                                                 <p className="fullsize-cart__item-brand">{data[item].brand}</p>
@@ -64,9 +73,9 @@ class CartFullSize extends React.Component {
                                                             {attribute.items.map((item, i) =>
                                                                 <p key={i} style={{ backgroundColor: item.value }} id={`${attribute.name}-${i}-${item.value}preview`}
                                                                     className={attribute.type === "text" ?
-                                                                        (Object.values(element).map((value) => (item.value === value)).indexOf(true) != -1 ? "attribute-value__text_no-hover attribute-value__text_selected" : "attribute-value__text_no-hover")
+                                                                        (Object.keys(element).map((value) => attribute.name === value && item.value === element[value]).indexOf(true) !== -1 ? "attribute-value__text_no-hover attribute-value__text_selected" : "attribute-value__text_no-hover")
                                                                         :
-                                                                        (Object.values(element).map((value) => (item.value === value)).indexOf(true) != -1 ? "attribute-value__color_no-hover attribute-value__color_selected " :
+                                                                        (Object.keys(element).map((value) => attribute.name === value && item.value === element[value]).indexOf(true) !== -1 ? "attribute-value__color_no-hover attribute-value__color_selected " :
                                                                             (item.displayValue === "White" ? "attribute-value__color_no-hover color_white-border_no-hover" : "attribute-value__color_no-hover")
                                                                         )}
                                                                 >{attribute.type === "text" && item.value}</p>)}
@@ -82,7 +91,12 @@ class CartFullSize extends React.Component {
                                                     <p className="buttons-container__amount-button" onClick={changeAmountOfItem.bind(this)}>-</p>
                                                 </div>
                                                 <div className={data[item].name === "Jacket" ? "fullsize-cart__image-container_jacket" : "fullsize-cart__image-container"}>
-                                                    <img className={data[item].name === "Jacket" ? "fullsize-cart__image_jacket" : "fullsize-cart__image"} src={data[item].gallery[0]} alt="item"></img>
+                                                    <img className={data[item].name === "Jacket" ? "fullsize-cart__image_jacket" : "fullsize-cart__image"} src={data[item].gallery[0]} alt={element.id}></img>
+                                                    {data[item].gallery.length > 0 &&
+                                                        <div className={`cart__carousel-buttons-container carousel-buttons-container-${element.id}`}>
+                                                            <img className="carousel-buttons-container__button" src="./assets/carousel_previous_button.svg" alt="carousel previous button" onClick={(e) => this.changePreviewState(e)}></img>
+                                                            <img className="carousel-buttons-container__button" src="./assets/carousel_next_button.svg" alt="carousel next button" onClick={(e) => this.changePreviewState(e)}></img>
+                                                        </div>}
                                                 </div>
                                             </div>
 
@@ -112,7 +126,19 @@ class CartFullSize extends React.Component {
 
                     <div className={this.props.itemsInCart.length > 0 ? "total-block__order-button" : "total-block__order-button_inactive"} onClick={this.props.itemsInCart.length > 0 ? simulatePurchase.bind(this) : undefined}>order</div>
                 </div>
+
+                {this.state.isChangePreview && <Query query={GET_PRODUCTS_BY_ID} variables={{ "id": this.state.idForCarousel }}>
+                    {({ data, error, loading }) => {
+
+                        if (error) return <p>Error!</p>
+                        if (loading) return <p>Loading...</p>
+                        return (
+                            changePreviewInCartCarousel.bind(this)(this.state.currentEvent, data.product.gallery)
+                        )
+                    }}
+                </Query>}
             </div>
+
         )
     }
 }
