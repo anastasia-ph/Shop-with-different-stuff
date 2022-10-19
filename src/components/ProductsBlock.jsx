@@ -2,9 +2,7 @@ import React from "react";
 import { Query } from "@apollo/client/react/components"
 import { GET_PRODUCTS_BY_CATEGORY } from "../GRAPHQL/Queries";
 import ProductCard from "./ProductCard";
-import PDP from "./ProductDescriptionPage";
 import { connect } from "react-redux";
-import store from "../store";
 
 import { SET_ID } from "../actions/actions";
 import { Navigate } from "react-router-dom"
@@ -45,7 +43,7 @@ class ProductsBlock extends React.Component {
                                 if (error) return <p>Error!</p>
                                 if (loading) return <p>Loading...</p>
                                 // select one specific price symbol of which matches currently selected currency value
-                                let usedCurrency = data.category.products.map((e, i) => e.prices.filter((price) => price.currency.symbol == this.props.currentCurrency))
+                                let usedCurrency = data.category.products.map((e) => e.prices.filter((price) => price.currency.symbol === this.props.currentCurrency))
 
                                 return (
                                     <>
@@ -57,7 +55,7 @@ class ProductsBlock extends React.Component {
                         </Query>
 
                     </div>
-                    {this.state.openPDP && <Navigate to="/product"></Navigate>}
+                    {this.state.openPDP && <Navigate to={`product/${this.props.id}`}></Navigate>}
                 </div>
             </>
         )

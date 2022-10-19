@@ -6,6 +6,8 @@ import { AddToCartButton } from "./AddToCartButton"
 import { ADD_NEW_TO_CART, UPDATE_AMOUNT_OF_ITEM } from "../actions/actions"
 import { connect } from "react-redux";
 import { addToCart } from "../utils/addToCart";
+import $ from "jquery"
+
 
 class PDP extends React.Component {
 
@@ -56,6 +58,10 @@ class PDP extends React.Component {
         }
 
     }
+
+    setDescription(description) {
+        $('#item_description').html(description)
+    }
     render() {
         return (
 
@@ -78,7 +84,7 @@ class PDP extends React.Component {
                                                 {/* maybe inerit for this below?? */}
                                             </div>)}
                                     </div>
-                                    <div className={this.state.currentlyDisplayedName === "Jacket" ? "pdp__main-photo_container_jacket " : "pdp__main-photo_container"}>
+                                    <div className="pdp__main-photo_container">
                                         <img className={data.product.inStock ? (this.state.currentlyDisplayedName === "Jacket" ? "pdp__main-photo_jacket" : "pdp__main-photo") : (this.state.currentlyDisplayedName === "Jacket" ? "pdp__main-photo_jacket product-card__image-outofstock" : "pdp__main-photo product-card__image-outofstock")} src={this.state.currentlyDisplayedPhoto} alt={data.product.name}></img>
                                         {!data.product.inStock && <p className="product_card__outofstock-text">Out of stock</p>}
                                     </div>
@@ -108,8 +114,10 @@ class PDP extends React.Component {
                                             </div>
                                         </div>
                                         <p id="attribute-not-set" className="pdp__item_warning"></p>
+
                                         <AddToCartButton onClick={addToCart.bind(this)} text='Add to cart' inStock={data.product.inStock} parameters={this.props.id}></AddToCartButton>
-                                        <div dangerouslySetInnerHTML={{ __html: data.product.description }} />
+                                        <div id="item_description" onLoad={this.setDescription(data.product.description)}>
+                                        </div>
 
                                     </div>
 
@@ -132,8 +140,6 @@ const mapStateToProps = function (state) {
         cart: state.cart,
         currentCurrency: state.currencyReducer.currentCurrency,
         id: state.setID.id,
-
-
         isCartDropdown: state.switchCartDropdown.isCartDropdown,
 
 

@@ -36,6 +36,19 @@
     }
 }
 
+.currency-dropdown__item_selected {
+    width: 114px;
+    box-sizing: border-box;
+    padding: 0 38px 0 20px;
+    height: 62px;
+    background-color: $white;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+
+    background-color: $gray;
+}
+
 .currency-dropdown__text {
     font: 500 18px "Raleway";
 

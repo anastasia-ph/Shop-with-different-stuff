@@ -13,12 +13,12 @@ export function addToCartQuickBuy(data) {
     Object.keys(attributesValues).map((e) => uniqueKey += attributesValues[e])
     attributesValues["unique_key"] = uniqueKey
     attributesValues["amount"] = 1;
-    let itemsPresentInCart = store.getState().itemsInCart.cart
+    let { itemsInCart: { cart: itemsPresentInCart } } = store.getState()
     let index;
-    itemsPresentInCart.map((item, i) => item.unique_key == attributesValues.unique_key ? index = i : null)
+    itemsPresentInCart.map((item, i) => item.unique_key === attributesValues.unique_key ? index = i : null)
     let amountOfItems = store.getState().itemsInCart.cart.reduce((sum, e) => sum + e.amount, 1)
     localStorage.setItem("amountOfItems", amountOfItems)
-    index != undefined ? this.props.updateAmountInCart(index, amountOfItems) :
+    index !== undefined ? this.props.updateAmountInCart(index, amountOfItems) :
         this.props.sendItemToCart(attributesValues, amountOfItems)
 
     unsubscribe()

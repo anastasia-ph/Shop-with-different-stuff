@@ -28,13 +28,13 @@ export class ProductCard extends React.Component {
                     <img src="../assets/add_to_cart.svg" alt="add to cart" className="product-card__cart-icon" onClick={this.setQuickBuyParameter}></img>
                     <div className="product-card__image-container">
 
-                        <img className={this.props.inStock ? (this.props.name == "Jacket" ? "product-card__image_jacket" : "product-card__image") : (this.props.name == "Jacket" ? "product-card__image_jacket product-card__image-outofstock" : "product-card__image product-card__image-outofstock")} src={this.props.src} alt={this.props.name}></img>
+                        <img className={this.props.inStock ? (this.props.name === "Jacket" ? "product-card__image_jacket" : "product-card__image") : (this.props.name === "Jacket" ? "product-card__image_jacket product-card__image-outofstock" : "product-card__image product-card__image-outofstock")} src={this.props.src} alt={this.props.name}></img>
                         {!this.props.inStock && <p className="product_card__outofstock-text">Out of stock</p>}
                         {this.state.isQuickBuyActive && <Query query={GET_ATTRIBUTES_BY_ID} variables={{ "id": this.state.id }} >
                             {({ data, error, loading }) => {
                                 if (error) return <p>Error!</p>
                                 if (loading) return <p>Loading...</p>
-                                { data.product.inStock && this.addToCartQuickBuyBinded(data) }
+                                data.product.inStock && this.addToCartQuickBuyBinded(data)
                                 return (
                                     <React.Fragment></React.Fragment>
                                 )

@@ -58,7 +58,7 @@
 }
 
 .pdp__images-preview-jacket {
-    height: 140%;
+    height: 100%;
 }
 
 .pdp__main-photo_container {
@@ -90,7 +90,7 @@
 .pdp__main-photo_jacket {
     display: flex;
     justify-self: center;
-    height: 130%;
+    height: 100%;
 }
 
 .item-attributes__group {
@@ -231,7 +231,7 @@
 .value-color__selected {
     width: 35px !important;
     height: 35px !important;
-    border: 2px solid $green  !important;
+    border: 2px solid $green !important;
     ;
 }
 

@@ -3,7 +3,6 @@ import { Query } from "@apollo/client/react/components"
 import { GET_PRODUCTS_BY_ID } from "../GRAPHQL/Queries";
 import { COUNT_TOTAL, INCREASE_AMOUNT_OF_ITEM, DECREASE_AMOUNT_OF_ITEM, SWITCH_CART_DROPDOWN, SIMULATE_PURCHASE } from "../actions/actions";
 import { connect } from "react-redux";
-import { round } from "mathjs";
 import { changeAmountOfItem } from "../utils/changeAmountOfItem";
 import { countTotalAmount } from "../utils/countTotalAmountCart";
 import { simulatePurchase } from "../utils/simulatePurchase";
@@ -42,6 +41,8 @@ class CartFullSize extends React.Component {
         return (
 
             <div className="fullsize-cart__wrapper" >
+                {this.props.isCartDropdown && <div className="products-block__container_inactive-state"></div>}
+
                 <p className="fullsize-cart__title">Cart</p>
                 <div className="fullsize-cart__items-wrapper">
                     {this.props.itemsInCart.length > 0 ? this.props.itemsInCart.map((element) => <Query query={GET_PRODUCTS_BY_ID} variables={{ "id": element.id }}>
@@ -62,7 +63,7 @@ class CartFullSize extends React.Component {
                                             <div className="fullsize-cart__item-left-container" >
                                                 <p className="fullsize-cart__item-brand">{data[item].brand}</p>
                                                 <p className="fullsize-cart__item-title">{data[item].name}</p>
-                                                <p className="fullsize-cart__item-price" >{round(usedCurrency[0].amount * element.amount, 2)}{usedCurrency[0].currency.symbol}</p>
+                                                <p className="fullsize-cart__item-price" >{usedCurrency[0].amount}{usedCurrency[0].currency.symbol}</p>
 
                                                 <div className="cart-item-dropdown__attributes">
                                                     {/* create html element for each attribute group name */}
@@ -92,8 +93,8 @@ class CartFullSize extends React.Component {
                                                 </div>
                                                 <div className={data[item].name === "Jacket" ? "fullsize-cart__image-container_jacket" : "fullsize-cart__image-container"}>
                                                     <img className={data[item].name === "Jacket" ? "fullsize-cart__image_jacket" : "fullsize-cart__image"} src={data[item].gallery[0]} alt={element.id}></img>
-                                                    {data[item].gallery.length > 0 &&
-                                                        <div className={`cart__carousel-buttons-container carousel-buttons-container-${element.id}`}>
+                                                    {data[item].gallery.length > 1 &&
+                                                        <div className={`cart__carousel-buttons-container carousel-buttons-container-${element.unique_key}`}>
                                                             <img className="carousel-buttons-container__button" src="./assets/carousel_previous_button.svg" alt="carousel previous button" onClick={(e) => this.changePreviewState(e)}></img>
                                                             <img className="carousel-buttons-container__button" src="./assets/carousel_next_button.svg" alt="carousel next button" onClick={(e) => this.changePreviewState(e)}></img>
                                                         </div>}

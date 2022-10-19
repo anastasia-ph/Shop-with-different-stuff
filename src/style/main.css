@@ -243,6 +243,24 @@
   background-color: #eeeeee;
 }
 
+.currency-dropdown__item_selected {
+  width: 114px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0 38px 0 20px;
+  height: 62px;
+  background-color: #ffffff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  cursor: pointer;
+  background-color: #eeeeee;
+}
+
 .currency-dropdown__text {
   font: 500 18px "Raleway";
 }
@@ -530,7 +548,7 @@ img {
 }
 
 .pdp__images-preview-jacket {
-  height: 140%;
+  height: 100%;
 }
 
 .pdp__main-photo_container {
@@ -572,7 +590,7 @@ img {
   display: -ms-flexbox;
   display: flex;
   justify-self: center;
-  height: 130%;
+  height: 100%;
 }
 
 .item-attributes__group {

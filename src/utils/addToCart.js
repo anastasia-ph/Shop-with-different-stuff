@@ -29,7 +29,8 @@ export function addToCart() {
     let availableAttributes = ($(".item-attributes__group").find(".item-attribute__name"))
     compareTwoSetsOfAttributes(availableAttributes, attributesValues)
     //compare unique key with other unique keys in store
-    let itemsPresentInCart = store.getState().itemsInCart.cart
+    let { itemsInCart: { cart: itemsPresentInCart } } = store.getState()
+    // let itemsPresentInCart = store.getState().itemsInCart.cart
     let index;
     itemsPresentInCart.map((item, i) => item.unique_key === attributesValues.unique_key ? index = i : null)
     //if index of item in store with similar is not exist, send data as new object to store.

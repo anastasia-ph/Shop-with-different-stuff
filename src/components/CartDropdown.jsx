@@ -35,7 +35,7 @@ class CartDropdown extends React.Component {
     render() {
         let arr = []
         return (
-            <div className="cart-dropdown__container">
+            <div className="cart-dropdown__container" id="cart_dropdown__container">
                 <div className="cart-dropdown__title">
                     <p className="cart-dropdown__title-text">My Bag,  </p>
                     <p className="cart-dropdown__title-value" >{this.props.amountOfItems !== "undefined" ? this.props.amountOfItems : 0} {(this.props.amountOfItems === 1) ? "item" : "items"}</p>
@@ -65,7 +65,7 @@ class CartDropdown extends React.Component {
                                             <div className="cart-item-dropdown__product-container" >
                                                 <p className="cart-item-dropdown__product-brand">{data[item].brand}</p>
                                                 <p className="cart-item-dropdown__product-title">{data[item].name}</p>
-                                                <p className="cart-item-dropdown__product-price" >{round(usedCurrency[0].amount * element.amount, 2)}{usedCurrency[0].currency.symbol}</p>
+                                                <p className="cart-item-dropdown__product-price" >{usedCurrency[0].amount}{usedCurrency[0].currency.symbol}</p>
 
                                                 <div className="cart-item-dropdown__attributes">
                                                     {/* create html element for each attribute group name */}

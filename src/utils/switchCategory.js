@@ -7,6 +7,8 @@ export function switchCategory(e) {
     localStorage.setItem("currentCategory", e.target.innerHTML);
     this.props.sendCategory(e.target.id)
     this.setState({ currentCategory: e.target.innerHTML })
+    this.setState({ isCategoryChanged: true })
+    setTimeout(() => { this.setState({ isCategoryChanged: false }) }, 1000)
 
 
 };
